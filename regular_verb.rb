@@ -1,4 +1,5 @@
 # This class handles regular verbs
+
 class RegularVerb
 	def initialize (infinitive)
 		@infinitive = infinitive.downcase
