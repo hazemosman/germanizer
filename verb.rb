@@ -1,4 +1,5 @@
 require_relative 'regular_verb'
+require_relative 'db_base'
 
 #==Part of Germanizer project
 # This class extends RegularVerb to handle irregular verbs too
