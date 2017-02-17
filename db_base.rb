@@ -9,26 +9,28 @@ class DBBase
 
   def drop_tables
     puts 'Dropping pronouns table...'
-    @db.execute %q{
-      Drop table pronouns
-    }
+    @db.execute 'Drop table if exists pronouns'
+    @db.execute 'Drop table if exists tenses'
+    @db.execute 'Drop table if exists irr_verbs'
   end
 
   def create_tables
     create_pronouns_table
+    create_tenses_table
+    create_irr_verbs_table
   end
 
-  def get_nominative
-    return @db.execute %q{
-    Select description,nominative from pronouns
-    }
-  end
-  def get_all
+  def get_all_pronouns
     return @db.execute %q{
     Select * from pronouns
     }
   end
 
+  def add_irr_veb
+    # TODO implement functions
+  end
+
+# Private Methods
   private
 
   def create_pronouns_table
@@ -56,9 +58,47 @@ class DBBase
     @db.execute"#{sql}#{i += 1},'you (formal)','Sie','Sie','Ihnen')"
   end
 
+  def create_tenses_table
+    puts 'Creating tenses table...'
+    @db.execute %q{
+    Create table tenses (
+      id integer primary key,
+      description varchar(10),
+      tense varchar(10))
+    }
+
+    i = 0
+    sql =  "Insert into tenses(id,description,tense) values("
+    puts 'Inserting tenses...'
+    @db.execute"#{sql}#{i += 1},'present','Präsens')"
+    @db.execute"#{sql}#{i += 1},'preterite', 'Imperfekt, Präteritum')"
+    @db.execute"#{sql}#{i += 1},'perfect','Perfekt')"
+    @db.execute"#{sql}#{i += 1},'past perfect','Plusquamperfekt')"
+    @db.execute"#{sql}#{i += 1},'future','Futur I')"
+    @db.execute"#{sql}#{i += 1},'future perfect','Futur II')"
+  end
+
+  def create_irr_verbs_table
+    puts 'Creating irr_verbs table...'
+    @db.execute %q{
+    Create table irr_verbs (
+      id integer primary key,
+      ich varchar(20),
+      du varchar(20),
+      er varchar(20),
+      sie_she varchar(20),
+      es varchar(20),
+      wir varchar(20),
+      ihr varchar(20),
+      sie varchar(20),
+      sie_formal varchar(20),
+      tense_id)
+    }
+  end
+
 end
 
 # TODO Add the following in a rake task
-#mydb = DBBase.new
-#mydb.drop_tables
-#mydb.create_tables
+mydb = DBBase.new
+mydb.drop_tables
+mydb.create_tables
