@@ -41,7 +41,8 @@ class DBBase
       description varchar(50),
       nominative varchar(10),
       accusative varchar(10),
-      dative varchar(10))
+      dative varchar(10)
+      )
     }
 
     i = 0
@@ -64,7 +65,8 @@ class DBBase
     Create table tenses (
       id integer primary key,
       description varchar(10),
-      tense varchar(10))
+      tense varchar(10)
+      )
     }
 
     i = 0
@@ -83,6 +85,7 @@ class DBBase
     @db.execute %q{
     Create table irr_verbs (
       id integer primary key,
+      tense_id integer,
       ich varchar(20),
       du varchar(20),
       er varchar(20),
@@ -92,7 +95,8 @@ class DBBase
       ihr varchar(20),
       sie varchar(20),
       sie_formal varchar(20),
-      tense_id)
+      foreign key(tense_id) references tenses(id)
+      )
     }
   end
 
