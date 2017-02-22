@@ -1,14 +1,10 @@
-require 'profile'
+require_relative 'db_base.rb'
+require_relative 'verb'
 
-iterations = 1000000
+#mydb = DBBase.new
+#mydb.drop_tables
+#mydb.create_tables
+
+#Verb.add_verb
 
 
-
-iterations.times do |i|
-  x = i
-end
-
-
-for i in 1..iterations
-  x = i
-end

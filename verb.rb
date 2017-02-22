@@ -28,10 +28,48 @@ class Verb < RegularVerb
 		end
 	end
 
-	
+	def self.add_verb
+		mydb = DBBase.new
+		puts 'This will add a new irregular verb'
+		infinitive = ''
+
+		#TODO validate user input
+		print "\nEnter verb infinitve:"
+		infinitive = gets.chomp.downcase
+		verb = Verb.new(infinitive)
+
+		puts ''
+		mydb.get_tenses.each { |tense| puts "#{tense['id']}: #{tense['tense']} (#{tense['description']})"}
+		print "Enter the number of the tense of your verb (e.g. 1):"
+		verb.tense_id = gets.chomp
+
+		puts "\nNow enter verb conjugation with each pronoun in the selected tense"
+
+		print "\nich:"
+		verb.ich = gets.chomp.downcase
+		print "du:"
+		verb.du = gets.chomp.downcase
+		print "er:"
+		verb.er = gets.chomp.downcase
+		print "se (she):"
+		verb.sie_she = gets.chomp.downcase
+		print "es:"
+		verb.es = gets.chomp.downcase
+		print "wir:"
+		verb.wir = gets.chomp.downcase
+		print "ihr:"
+		verb.ihr = gets.chomp.downcase
+		print "sie (they):"
+		verb.sie = gets.chomp.downcase
+		print "Sie (formal):"
+		verb.sie_formal = gets.chomp.downcase
+
+		mydb.insert_veb(verb)
+	end
+
 	private
 
-	# TODO Get irregular verbs from DB
+	# TODO Get and save irregular verbs from/to DB
 	def present_conjugate_sein
 		['ich bin',
 		'du bist',

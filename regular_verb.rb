@@ -2,6 +2,8 @@
 
 class RegularVerb
 
+	attr_accessor :infinitive, :tense_id, :tense, :ich, :du, :er, :sie_she, :es, :wir, :ihr, :sie, :sie_formal
+
 	def initialize (infinitive)
 		@infinitive = infinitive.downcase
 		set_stem(@infinitive)
